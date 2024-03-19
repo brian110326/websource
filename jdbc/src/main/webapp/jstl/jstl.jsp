@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ include file="../include/header.jsp" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%-- <c:if test="조건"></c:if> --%>
@@ -31,4 +31,5 @@
 <c:forEach var="test" begin="1" end="10" step="2">
     <b>${test}</b>
 </c:forEach>
+
 <%@ include file="../include/footer.jsp" %>

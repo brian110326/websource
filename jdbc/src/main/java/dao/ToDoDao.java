@@ -5,8 +5,13 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
-public class ToDoDao {
+import dto.TodoDto;
+
+public class TodoDao {
     // JDBC
     private Connection con = null;
     private PreparedStatement pstmt = null;
@@ -20,7 +25,7 @@ public class ToDoDao {
         }
     }
 
-    public Connection gConnection() {
+    public Connection getConnection() {
         String url = "jdbc:oracle:thin:@localhost:1521:xe";
         String user = "c##test2";
         String password = "test";
@@ -31,6 +36,33 @@ public class ToDoDao {
             e.printStackTrace();
         }
         return con;
+    }
+
+    // 전체조회 - Read
+    public List<TodoDto> getList() {
+        con = getConnection();
+        String sql = "SELECT no, title, created_at, completed FROM todotbl order by no";
+        List<TodoDto> list = new ArrayList<>();
+        try {
+            pstmt = con.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                TodoDto dto = new TodoDto();
+                dto.setNumber(rs.getInt(1));
+                dto.setTitle(rs.getString(2));
+                dto.setCreated_at(rs.getDate(3));
+                dto.setCompleted(rs.getBoolean(4));
+
+                list.add(dto);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close(con, pstmt, rs);
+        }
+
+        return list;
     }
 
     public void close(Connection con, PreparedStatement pstmt, ResultSet rs) {
@@ -62,6 +94,27 @@ public class ToDoDao {
             e.printStackTrace();
         }
 
+    }
+
+    public int insert(TodoDto insertdto) {
+        con = getConnection();
+        String sql = "insert into todotbl(NO,TITLE,DESCRIPTION) values(todo_seq.nextval,?,?)";
+        int result = 0;
+        try {
+            pstmt = con.prepareStatement(sql);
+
+            pstmt.setString(1, insertdto.getTitle());
+            pstmt.setString(2, insertdto.getDescription());
+
+            result = pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close(con, pstmt);
+        }
+
+        return result;
     }
 
 }
