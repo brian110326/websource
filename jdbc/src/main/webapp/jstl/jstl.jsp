@@ -32,4 +32,10 @@
     <b>${test}</b>
 </c:forEach>
 
+<%-- <c:out> --%>
+<%-- flag가 true면 OK 출력 아니면 ERROR 출력 --%>
+<c:out value="${flag?"OK":"ERROR"}"></c:out>
+
+<c:out value="${flag?'OK':'ERROR'}" />
+
 <%@ include file="../include/footer.jsp" %>

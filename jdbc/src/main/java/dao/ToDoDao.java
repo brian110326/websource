@@ -65,6 +65,54 @@ public class TodoDao {
         return list;
     }
 
+    public TodoDto getRow(String no) {
+        con = getConnection();
+        String sql = "SELECT * FROM todotbl where no = ?";
+        TodoDto dto = null;
+
+        try {
+            pstmt = con.prepareStatement(sql);
+            pstmt.setInt(1, Integer.parseInt(no));
+            rs = pstmt.executeQuery();
+            if (rs.next()) {
+                dto = new TodoDto();
+                dto.setNumber(rs.getInt(1));
+                dto.setTitle(rs.getString(2));
+                dto.setCreated_at(rs.getDate(3));
+                dto.setCompleted(rs.getBoolean(4));
+                dto.setDescription(rs.getString(5));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close(con, pstmt, rs);
+        }
+
+        return dto;
+    }
+
+    public int update(TodoDto updatedto) {
+        con = getConnection();
+        String sql = "UPDATE TODOTBL SET COMPLETED = ?, DESCRIPTION =? WHERE NO = ?";
+        int result = 0;
+        try {
+            pstmt = con.prepareStatement(sql);
+
+            pstmt.setBoolean(1, updatedto.isCompleted());
+            pstmt.setString(2, updatedto.getDescription());
+            pstmt.setInt(3, updatedto.getNumber());
+
+            result = pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close(con, pstmt);
+        }
+
+        return result;
+    }
+
     public void close(Connection con, PreparedStatement pstmt, ResultSet rs) {
         try {
             if (rs != null) {

@@ -19,5 +19,7 @@
 
     // 화면이동(list) : 위의 결과(데이터)를 같이 가져가는지 여부 확인
     // 같은 view 폴더에 있으니 list.jsp만 작성
+    // 다른 폴더에 존재한다면 => /폴더명/파일명.jsp
+    
     response.sendRedirect("list.jsp");
 %>

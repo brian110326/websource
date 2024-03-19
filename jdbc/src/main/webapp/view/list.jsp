@@ -24,9 +24,21 @@
     <% for(TodoDto dto : list){ %>
     <tr>
       <th scope="row"><%=dto.getNumber()%></th>
-      <td><%=dto.getTitle()%></td>
+      <%-- get방식이기 때문에 --%>
+      <td><a href="readPro.jsp?no=<%=dto.getNumber()%>"><%=dto.getTitle()%></a></td>
       <td><%=dto.getCreated_at()%></td>
-      <td>@<%=dto.isCompleted()%></td>
+      
+      <td>
+          <%
+              out.print("<input type='checkbox' name='completed' id='completed' class='form-check-input' name='completed' value='true' ");
+              if(dto.isCompleted()){
+                out.print("checked >");
+              }
+              else{
+                out.print(">");
+              }      
+          %>
+      </td>
     </tr>
     <% } %>
   </tbody>
