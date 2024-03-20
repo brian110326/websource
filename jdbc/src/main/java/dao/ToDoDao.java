@@ -113,6 +113,26 @@ public class TodoDao {
         return result;
     }
 
+    public int delete(String no) {
+        con = getConnection();
+        String sql = "DELETE FROM TODOTBL WHERE NO = ?";
+        int result = 0;
+        try {
+            pstmt = con.prepareStatement(sql);
+
+            pstmt.setInt(1, Integer.parseInt(no));
+
+            result = pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close(con, pstmt);
+        }
+
+        return result;
+    }
+
     public void close(Connection con, PreparedStatement pstmt, ResultSet rs) {
         try {
             if (rs != null) {

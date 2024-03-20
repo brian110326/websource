@@ -1,14 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"%>
-<%@ page import="dao.TodoDao"%>
-<%@ page import="java.util.List"%>
+
 <%@ page import="dto.TodoDto"%>
 <%@ include file="../include/header.jsp" %>
-
-<%
-    // DB 연동
-    TodoDao dao = new TodoDao();
-    List<TodoDto> list = dao.getList();
-%>
 
 <h1>Todo List</h1>
 <table class="table">
@@ -20,27 +13,21 @@
       <th scope="col">완료여부</th>
     </tr>
   </thead>
+
   <tbody>
-    <% for(TodoDto dto : list){ %>
-    <tr>
-      <th scope="row"><%=dto.getNumber()%></th>
-      <%-- get방식이기 때문에 --%>
-      <td><a href="readPro.jsp?no=<%=dto.getNumber()%>"><%=dto.getTitle()%></a></td>
-      <td><%=dto.getCreated_at()%></td>
-      
-      <td>
-          <%
-              out.print("<input type='checkbox' name='completed' id='completed' class='form-check-input' name='completed' value='true' ");
-              if(dto.isCompleted()){
-                out.print("checked >");
-              }
-              else{
-                out.print(">");
-              }      
-          %>
-      </td>
-    </tr>
-    <% } %>
+  <%-- items="${list} : setAttribute에 쓴 이름, var=dto는 변수명 --%>
+    <c:forEach var="dto" items="${list}">
+      <tr>
+        <th scope="row">${dto.number}</th>
+        <%-- get방식이기 때문에 --%>
+        <td><a href='<c:url value="/read?no=${dto.number}" />' class="text-decoration-none text-reset">${dto.title}</a></td>
+        <td>${dto.created_at}</td>
+        
+        <td>
+            <input type="checkbox" name="completed" id="completed" class="form-check-input" name="completed" value="true" <c:out value="${dto.completed?'checked':''}" /> >
+        </td>
+      </tr>
+    </c:forEach>
   </tbody>
 </table>
 <%@ include file="../include/footer.jsp" %>
