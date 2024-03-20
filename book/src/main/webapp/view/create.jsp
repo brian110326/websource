@@ -38,4 +38,6 @@
 
 <%@ include file="/include/section.jsp" %>
 
+<script src='<c:url value="/js/create.js" />'></script>
+
 <%@ include file="/include/footer.jsp" %>

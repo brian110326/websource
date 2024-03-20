@@ -21,6 +21,7 @@ public class BookCreateServlet extends HttpServlet {
 
         BookDao dao = new BookDao();
 
+        // Integer.parseInt("") => NumberFormatException
         int code = Integer.parseInt(req.getParameter("code"));
         String title = req.getParameter("title");
         String writer = req.getParameter("writer");
