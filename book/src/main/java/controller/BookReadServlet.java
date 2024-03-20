@@ -1,0 +1,40 @@
+package controller;
+
+import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import dao.BookDao;
+import dto.BookDto;
+
+@WebServlet("/read")
+public class BookReadServlet extends HttpServlet {
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("utf-8");
+
+        BookDao dao = new BookDao();
+
+        // getParameter("code") ==> code가 어떤 부분인지
+        // name요소를 가져오는 것도 있지만 read.jsp 주소줄에 ~code=${dto.code} 앞부분의 code
+        String code = req.getParameter("code");
+
+        BookDto dto = dao.getRow(Integer.parseInt(code));
+
+        req.setAttribute("dto", dto);
+
+        RequestDispatcher rd = req.getRequestDispatcher("/view/read.jsp");
+        rd.forward(req, resp);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        doGet(req, resp);
+    }
+}
