@@ -2,7 +2,7 @@
 
 <%@ include file="/include/header.jsp" %>
 
-<h3 class="border-bottom mb-3">도서 수정</h3>
+<h3 class="border-bottom mb-3">도서 검색</h3>
 
 <form action='<c:url value="/search" />' method="post">
     <div class="row mb-3">

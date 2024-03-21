@@ -8,6 +8,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 import dto.BookDto;
 
 public class BookDao {
@@ -24,13 +29,26 @@ public class BookDao {
     }
 
     public Connection getConnection() {
-        String url = "jdbc:oracle:thin:@localhost:1521:xe";
-        String user = "c##test2";
-        String password = "test";
+        // String url = "jdbc:oracle:thin:@localhost:1521:xe";
+        // String user = "c##test2";
+        // String password = "test";
 
+        // try {
+        // con = DriverManager.getConnection(url, user, password);
+        // } catch (SQLException e) {
+        // e.printStackTrace();
+        // }
+
+        // return con;
+
+        Context initContext;
         try {
-            con = DriverManager.getConnection(url, user, password);
-        } catch (SQLException e) {
+            initContext = new InitialContext();
+            // java:/comp/env : 등록된 이름들을 관리하는 곳
+            Context envContext = (Context) initContext.lookup("java:/comp/env");
+            DataSource ds = (DataSource) envContext.lookup("jdbc/myoracle");
+            con = ds.getConnection();
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
