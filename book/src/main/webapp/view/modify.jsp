@@ -7,11 +7,11 @@
 <form action='<c:url value="/modify" />' method="post">
     <div class="row mb-3">
         <div class="col">
-            <input type="text" class="form-control" placeholder="code" name="code">
+            <input type="text" class="form-control" placeholder="code" name="code" id="code">
         </div>
 
         <div class="col">
-            <input type="text" class="form-control" placeholder="price" name="price">
+            <input type="text" class="form-control" placeholder="price" name="price" id="price">
         </div>
     </div>
     <div>
@@ -21,5 +21,7 @@
 </form>
 
 <%@ include file="/include/section.jsp" %>
+
+<script src='<c:url value="/js/modify.js" />'></script>
 
 <%@ include file="/include/footer.jsp" %>

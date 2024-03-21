@@ -66,6 +66,46 @@ public class BookDao {
         return list;
     }
 
+    public List<BookDto> getSearchList(String criteria, String keyword) {
+        con = getConnection();
+        // 검색기준이 code라면
+        // String sql = "SELECT * FROM BOOKTBL WHERE CODE=?";
+        // 검색기준이 writer라면
+        // String sql = "SELECT * FROM BOOKTBL WHERE WRITER=?";
+        String sql = null;
+        if (criteria.equals("code")) {
+            sql = "SELECT * FROM BOOKTBL WHERE CODE=?";
+        }
+        if (criteria.equals("writer")) {
+            sql = "SELECT * FROM BOOKTBL WHERE WRITER=?";
+        }
+        List<BookDto> list = new ArrayList<>();
+
+        try {
+            pstmt = con.prepareStatement(sql);
+
+            pstmt.setString(1, keyword);
+
+            rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                BookDto dto = new BookDto();
+                dto.setCode(rs.getInt(1));
+                dto.setTitle(rs.getString(2));
+                dto.setWriter(rs.getString(3));
+                dto.setPrice(rs.getInt(4));
+
+                list.add(dto);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close(con, pstmt, rs);
+        }
+
+        return list;
+    }
+
     public BookDto getRow(int code) {
         BookDto dto = new BookDto();
         con = getConnection();
@@ -139,6 +179,7 @@ public class BookDao {
         String sql = "DELETE FROM BOOKTBL WHERE CODE = ?";
         try {
             pstmt = con.prepareStatement(sql);
+            pstmt.setInt(1, code);
 
             result = pstmt.executeUpdate();
         } catch (SQLException e) {
