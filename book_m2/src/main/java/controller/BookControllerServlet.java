@@ -42,7 +42,7 @@ public class BookControllerServlet extends HttpServlet {
         } else if (cmd.equals("/create.do")) {
             action = new BookCreateAction("/list.do");
         } else if (cmd.equals("/modify.do")) {
-            action = new BookModifyAction("/list.do");
+            action = new BookModifyAction("/read.do");
         } else if (cmd.equals("/delete.do")) {
             action = new BookDeleteAction("/list.do");
         } else if (cmd.equals("/search.do")) {

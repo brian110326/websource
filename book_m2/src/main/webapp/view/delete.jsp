@@ -12,7 +12,7 @@
 
     <div class="mb-3">
         <button type="submit" class="btn btn-success">삭제</button>
-        <a href='<c:url value="/list" />' class="btn btn-primary">목록</a>
+        <a href='<c:url value="/list.do" />' class="btn btn-primary">목록</a>
     </div>
 
 </form>

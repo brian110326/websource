@@ -19,6 +19,9 @@ public class BookDeleteAction implements Action {
         BookService service = new BookServieImpl();
         boolean result = service.delete(Integer.parseInt(code));
 
+        if (!result) {
+            path = "/view/delete.jsp";
+        }
         return new ActionForward(path, true);
     }
 

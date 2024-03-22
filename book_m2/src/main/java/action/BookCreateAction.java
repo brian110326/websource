@@ -22,8 +22,6 @@ public class BookCreateAction implements Action {
         String price = req.getParameter("price");
         String description = req.getParameter("description");
 
-        System.out.println(description);
-
         BookService service = new BookServieImpl();
         BookDto dto = new BookDto(Integer.parseInt(code), title, writer, Integer.parseInt(price), description);
 
