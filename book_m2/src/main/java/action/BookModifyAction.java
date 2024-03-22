@@ -39,6 +39,7 @@ public class BookModifyAction implements Action {
         // 이렇게해도 작동은 되지만 사용자 입력값이 잘못입력했을때가 있을수가 있음
         // ==> code, price처럼 getParameter로 가져온것은 객체로 보내지 X
         // ==> but 만약에 code, price로 DB작업(insert, update...)을 해서 결정이 된 상태라면 객체로 보내기 가능
+        // 객체로 보낼지 말지 여부를 결정할 때는 일단 입력값이 잘못되었을 때를 생각해보기
 
         return new ActionForward(path, true);
     }
