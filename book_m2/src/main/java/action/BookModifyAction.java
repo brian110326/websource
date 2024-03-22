@@ -37,7 +37,8 @@ public class BookModifyAction implements Action {
 
         // req.setAttribute("dto", dto);
         // 이렇게해도 작동은 되지만 사용자 입력값이 잘못입력했을때가 있을수가 있음
-        // ==> 사용자 입력값은 객체로 다른 주소로 보내지 않는다. 이미 정해진 값만 확정된 값만 보낸다
+        // ==> code, price처럼 getParameter로 가져온것은 객체로 보내지 X
+        // ==> but 만약에 code, price로 DB작업(insert, update...)을 해서 결정이 된 상태라면 객체로 보내기 가능
 
         return new ActionForward(path, true);
     }
