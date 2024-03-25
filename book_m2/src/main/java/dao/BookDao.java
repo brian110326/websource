@@ -1,5 +1,6 @@
 package dao;
 
+import java.lang.reflect.Member;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -14,6 +15,8 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import dto.BookDto;
+import dto.ChangeDto;
+import dto.MemberDto;
 
 public class BookDao {
     Connection con = null;
@@ -205,6 +208,77 @@ public class BookDao {
         } finally {
             close(con, pstmt);
         }
+        return result;
+    }
+
+    public MemberDto isLogin(MemberDto logindto) {
+        // 로그인
+        con = getConnection();
+        String sql = "SELECT USERID, NAME FROM MEMBERTBL WHERE USERID = ? AND PASSWORD = ?";
+        MemberDto dto = null;
+        try {
+            pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, logindto.getUserid());
+            pstmt.setString(2, logindto.getPassword());
+
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                dto = new MemberDto();
+                dto.setUserid(rs.getString(1));
+                dto.setName(rs.getString(3));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close(con, pstmt, rs);
+        }
+
+        return dto;
+    }
+
+    public int passwordChange(ChangeDto changeDto) {
+        // 비밀번호 변경
+        con = getConnection();
+        String sql = "UPDATE MEMBERTBL SET PASSWORD = ? WHERE USERID = ?";
+        int result = 0;
+        try {
+            pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, changeDto.getNewPassword());
+            pstmt.setString(2, changeDto.getUserid());
+
+            result = pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close(con, pstmt);
+        }
+
+        return result;
+
+    }
+
+    public int register(MemberDto insertDto) {
+        // 회원가입
+        con = getConnection();
+        String sql = "INSERT INTO MEMBERTBL VALUES(?,?,?,?)";
+        int result = 0;
+
+        try {
+            pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, insertDto.getUserid());
+            pstmt.setString(2, insertDto.getPassword());
+            pstmt.setString(3, insertDto.getName());
+            pstmt.setString(4, insertDto.getEmail());
+
+            result = pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close(con, pstmt);
+        }
+
         return result;
     }
 

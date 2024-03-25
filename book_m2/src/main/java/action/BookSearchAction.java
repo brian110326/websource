@@ -21,7 +21,6 @@ public class BookSearchAction implements Action {
         String criteria = req.getParameter("criteria");
         String keyword = req.getParameter("keyword");
 
-        BookDto dto = new BookDto();
         BookService service = new BookServieImpl();
 
         List<BookDto> list = service.searchListAll(criteria, keyword);
