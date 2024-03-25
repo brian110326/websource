@@ -4,7 +4,7 @@
 
 <h1>Register</h1>
 
-<form action="" method="post">
+<form action='<c:url value="/register.do" />' method="post">
     <div class="mb-3 row">
         <label for="userid" class="col-sm-2 col-form-label">아이디</label>
         <div class="col-sm-5">
@@ -43,7 +43,7 @@
 
     <div class="form-group">
         <button type="submit" class="btn btn-success">회원가입</button>
-        <button type="reset" class="btn btn-danger">취소</button>
+        <a href='<c:url value="/" />' class="btn btn-danger">취소</a>
     </div>
 </form>
 
