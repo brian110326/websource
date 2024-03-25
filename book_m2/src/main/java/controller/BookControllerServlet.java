@@ -13,6 +13,7 @@ import action.Action;
 import action.ActionForward;
 import action.BookCreateAction;
 import action.BookDeleteAction;
+import action.BookLeaveAction;
 import action.BookListAction;
 import action.BookLoginAction;
 import action.BookLogoutAction;
@@ -59,6 +60,8 @@ public class BookControllerServlet extends HttpServlet {
             action = new BookPwdChange("/view/login.jsp");
         } else if (cmd.equals("/register.do")) {
             action = new BookRegisterAction("/view/login.jsp");
+        } else if (cmd.equals("/leave.do")) {
+            action = new BookLeaveAction("/view/login.jsp");
         }
 
         // 생성된 action에게 일 시키기(원래는 서블렛이 해야했던 일)

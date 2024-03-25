@@ -282,6 +282,25 @@ public class BookDao {
         return result;
     }
 
+    public int leave(MemberDto deleteDto) {
+        con = getConnection();
+        String sql = "DELETE FROM MEMBERTBL WHERE PASSWORD=?";
+        int result = 0;
+
+        try {
+            pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, deleteDto.getPassword());
+
+            result = pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close(con, pstmt);
+        }
+
+        return result;
+    }
+
     public void close(Connection con, PreparedStatement pstmt, ResultSet rs) {
         try {
             if (rs != null) {

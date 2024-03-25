@@ -187,6 +187,7 @@
             <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
               <li><a class="dropdown-item" href='<c:url value="/logout.do" />'>로그아웃</a></li>
               <li><a class="dropdown-item" href='<c:url value="/view/pwdChange.jsp" />'>비밀번호 수정</a></li>
+              <li><a class="dropdown-item" href='<c:url value="/view/leave.jsp" />'>회원탈퇴</a></li>
             </ul>
           </c:if>
 

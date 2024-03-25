@@ -56,4 +56,9 @@ public class BookServieImpl implements BookService {
         return dao.register(insertDto) == 1;
     }
 
+    @Override
+    public boolean leave(MemberDto deleteDto) {
+        return dao.leave(deleteDto) == 1;
+    }
+
 }
