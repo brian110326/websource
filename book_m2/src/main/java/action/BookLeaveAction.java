@@ -1,6 +1,7 @@
 package action;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import dto.MemberDto;
 import service.BookService;
@@ -25,6 +26,10 @@ public class BookLeaveAction implements Action {
         if (!service.leave(deleteDto)) {
             path = "/view/leave.jsp";
         }
+
+        HttpSession session = req.getSession();
+
+        session.invalidate();
 
         return new ActionForward(path, true);
     }
