@@ -3,7 +3,7 @@
 <%@ include file="/include/header.jsp" %>
 
 <div class="d-flex align-items-center justify-content-center h-100">
-    <form action="" method="post">
+    <form action='<c:url value="/change.do" />' method="post">
         <div class="card" style="width:40rem;">
             <div class="card-header">
                 <h4>비밀번호 변경</h4>

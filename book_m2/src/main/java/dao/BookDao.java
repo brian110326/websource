@@ -225,8 +225,8 @@ public class BookDao {
 
             if (rs.next()) {
                 dto = new MemberDto();
-                dto.setUserid(rs.getString(1));
-                dto.setName(rs.getString(3));
+                dto.setUserid(rs.getString("userid"));
+                dto.setName(rs.getString("name"));
             }
 
         } catch (SQLException e) {

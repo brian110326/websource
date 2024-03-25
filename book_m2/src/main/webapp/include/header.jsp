@@ -157,6 +157,7 @@
           <%-- 로그인 안한 경우 --%>
           <%-- empty : JSTL null값 여부 확인 내장 함수 --%>
           <%-- loginDto를 BookLoginAction에 setAttribute --%>
+          <%-- loginDto == null도 가능 --%>
           <c:if test="${empty loginDto}">
             <a
               href="#"

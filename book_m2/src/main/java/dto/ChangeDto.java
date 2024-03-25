@@ -16,4 +16,8 @@ public class ChangeDto {
     private String password; // 현재 비밀번호
     private String newPassword; // 변경 비밀번호
     private String confirmPassword; // 변경 비밀번호 확인
+
+    public boolean newPasswordEqualsConfirmPassword() {
+        return newPassword.equals(confirmPassword);
+    }
 }

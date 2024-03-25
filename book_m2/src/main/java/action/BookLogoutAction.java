@@ -1,6 +1,7 @@
 package action;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 public class BookLogoutAction implements Action {
 
@@ -12,7 +13,11 @@ public class BookLogoutAction implements Action {
 
     @Override
     public ActionForward execute(HttpServletRequest req) throws Exception {
-        return new ActionForward(path, false);
+        HttpSession session = req.getSession();
+
+        session.invalidate();
+
+        return new ActionForward(path, true);
     }
 
 }

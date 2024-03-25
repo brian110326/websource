@@ -15,7 +15,9 @@ import action.BookCreateAction;
 import action.BookDeleteAction;
 import action.BookListAction;
 import action.BookLoginAction;
+import action.BookLogoutAction;
 import action.BookModifyAction;
+import action.BookPwdChange;
 import action.BookReadAction;
 import action.BookSearchAction;
 
@@ -51,7 +53,9 @@ public class BookControllerServlet extends HttpServlet {
         } else if (cmd.equals("/login.do")) {
             action = new BookLoginAction("/list.do");
         } else if (cmd.equals("/logout.do")) {
-
+            action = new BookLogoutAction("/");
+        } else if (cmd.equals("/change.do")) {
+            action = new BookPwdChange("/view/login.jsp");
         }
 
         // 생성된 action에게 일 시키기(원래는 서블렛이 해야했던 일)
