@@ -284,12 +284,13 @@ public class BookDao {
 
     public int leave(MemberDto deleteDto) {
         con = getConnection();
-        String sql = "DELETE FROM MEMBERTBL WHERE PASSWORD=?";
+        String sql = "DELETE FROM MEMBERTBL WHERE USERID=? PASSWORD=?";
         int result = 0;
 
         try {
             pstmt = con.prepareStatement(sql);
-            pstmt.setString(1, deleteDto.getPassword());
+            pstmt.setString(2, deleteDto.getPassword());
+            pstmt.setString(1, deleteDto.getUserid());
 
             result = pstmt.executeUpdate();
         } catch (SQLException e) {

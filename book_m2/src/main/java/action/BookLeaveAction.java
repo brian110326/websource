@@ -18,10 +18,12 @@ public class BookLeaveAction implements Action {
     @Override
     public ActionForward execute(HttpServletRequest req) throws Exception {
         String password = req.getParameter("password");
+        String userid = req.getParameter("userid");
         BookService service = new BookServieImpl();
 
         MemberDto deleteDto = new MemberDto();
         deleteDto.setPassword(password);
+        deleteDto.setUserid(userid);
 
         if (!service.leave(deleteDto)) {
             path = "/view/leave.jsp";
