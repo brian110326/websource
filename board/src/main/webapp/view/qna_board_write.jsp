@@ -7,7 +7,7 @@ pageEncoding="UTF-8"%> <%@include file="../include/header.jsp"%>
       <h3 class="box-title">Board Write</h3>
     </div>
     <div style="height:20px"></div>
-    <form action="" method="" role="form" id="writeForm">
+    <form action='<c:url value="/qWrite.do" />' method="post" role="form" id="writeForm">
       <div class="box-body">
         <div class="form-group row">
           <label for="name" class="col-sm-2 col-form-label">작성자</label>
@@ -70,7 +70,9 @@ pageEncoding="UTF-8"%> <%@include file="../include/header.jsp"%>
         <div style="height:20px"></div>
         <div class="form-group text-center">
           <button type="submit" class="btn btn-primary">등록</button>
+
           <button type="reset" class="btn btn-danger">다시작성</button>
+
           <button type="button" class="btn btn-warning" id="list">
             목록보기
           </button>
@@ -81,4 +83,6 @@ pageEncoding="UTF-8"%> <%@include file="../include/header.jsp"%>
   </div>
   <!-- /.box -->
 </section>
+
+<script src='<c:url value="/js/write.js" />'></script>
 <%@include file="../include/footer.jsp"%>
