@@ -1,5 +1,8 @@
 package action;
 
+import java.io.File;
+import java.util.UUID;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
@@ -22,7 +25,6 @@ public class BoardWriteAction implements Action {
         String title = req.getParameter("title");
         String content = req.getParameter("content");
         String password = req.getParameter("password");
-        String attatch = req.getParameter("attatch");
 
         BoardService service = new BoardServiceImpl();
         BoardDto insertDto = new BoardDto();
@@ -32,13 +34,29 @@ public class BoardWriteAction implements Action {
         insertDto.setPassword(password);
 
         // 파일 업로드 처리
-        Part part = req.getPart("attatch");
+        Part part = req.getPart("attach");
         String fileName = getFileName(part);
 
+        String saveDir = "c:\\upload";
+
         if (!fileName.isEmpty()) {
-            part.write(fileName);
-            insertDto.setAttatch(fileName);
+
+            // 고유한 값 생성 ==> 고유한 값_사용자가 올린파일명
+            // 중복파일명은 저장을 해주지 않으므로 ==> 서버에 저장 시 다른 이름을 사용해야하기 때문
+            UUID uuid = UUID.randomUUID();
+            // File.separator : \
+            // File객체 다시 공부
+            File uploadFile = new File(saveDir + File.separator + uuid + "_" + fileName);
+
+            // c:\\upload\\1.jpg
+            // part.write(saveDir + "\\" + fileName); // 서버의 디스크에 파일 저장
+            part.write(uploadFile.toString()); // 서버의 디스크에 파일 저장
+
+            // insertDto.setAttatch(fileName);
+            insertDto.setAttatch(uploadFile.getName());
         }
+
+        System.out.println(insertDto);
 
         if (!service.create(insertDto)) {
             path = "/view/qna_board_write.jsp";
@@ -49,6 +67,7 @@ public class BoardWriteAction implements Action {
 
     private String getFileName(Part part) {
         String header = part.getHeader("content-disposition");
+        // Content-Disposition: attachment; filename="filename.jpg"
 
         String[] arr = header.split(";");
 
@@ -56,6 +75,7 @@ public class BoardWriteAction implements Action {
             String temp = arr[i];
 
             if (temp.trim().startsWith("filename")) {
+                // 파일이름만 추출
                 return temp.substring(temp.indexOf("=") + 2, temp.length() - 1);
             }
         }

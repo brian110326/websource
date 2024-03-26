@@ -31,7 +31,7 @@
 				<div class="form-group  row">
 					<label for="filename" class="col-sm-2 col-form-label">파일첨부</label>
 					<div class="col-sm-10">
-						
+						${dto.attatch}
 					</div>
 				</div>
 				<div style="height:10px"></div>
