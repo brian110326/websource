@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%> <%@include file="../include/header.jsp"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"%>
+
+<%@include file="/include/header.jsp"%>
 <!-- Main content -->
 <section class="content">
   <div class="box box-primary">
@@ -7,7 +8,20 @@ pageEncoding="UTF-8"%> <%@include file="../include/header.jsp"%>
       <h3 class="box-title">Board Write</h3>
     </div>
     <div style="height:20px"></div>
-    <form action='<c:url value="/qWrite.do" />' method="post" role="form" id="writeForm">
+    <form action='<c:url value="/qWrite.do" />' method="post" role="form" id="writeForm" enctype="multipart/form-data">
+    <%-- https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement/enctype --%>
+    <%-- 
+      enctype
+      1) application/x-www-form-urlencoded : 기본값
+      2) multipart/form-data : input file type이 존재할 때
+       => request 객체로 처리가 불가능
+
+       파일 업로드 처리
+       1) 외부 라이브러리 사용
+          - Apache Commons FileUpload
+          
+       2) 서블릿에서 제공되는 것을 사용
+     --%>
       <div class="box-body">
         <div class="form-group row">
           <label for="name" class="col-sm-2 col-form-label">작성자</label>
@@ -85,4 +99,4 @@ pageEncoding="UTF-8"%> <%@include file="../include/header.jsp"%>
 </section>
 
 <script src='<c:url value="/js/write.js" />'></script>
-<%@include file="../include/footer.jsp"%>
+<%@include file="/include/footer.jsp"%>
