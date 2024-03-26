@@ -17,6 +17,8 @@ import action.BoardReadAction;
 import action.BoardWriteAction;
 
 @WebServlet("*.do")
+// maxFileSize : 개별파일의 크기
+// maxRequestSize : 요청을 할 때 파일과 쿠키, 세션 등 추가로 붙는 용량까지
 @MultipartConfig(maxFileSize = 1024 * 1024 * 5, maxRequestSize = 1024 * 1024 * 5) // 파일 업로드 지원
 public class BoardControllerServlet extends HttpServlet {
     @Override
