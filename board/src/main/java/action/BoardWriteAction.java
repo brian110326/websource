@@ -37,6 +37,7 @@ public class BoardWriteAction implements Action {
         Part part = req.getPart("attach");
         String fileName = getFileName(part);
 
+        // upload는 그냥 임의 생성한 폴더명
         String saveDir = "c:\\upload";
 
         if (!fileName.isEmpty()) {
