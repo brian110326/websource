@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import action.Action;
 import action.ActionForward;
 import action.BoardListAction;
+import action.BoardReadAction;
 import action.BoardWriteAction;
 
 @WebServlet("*.do")
@@ -30,6 +31,8 @@ public class BoardControllerServlet extends HttpServlet {
             action = new BoardListAction("/view/qna_board_list.jsp");
         } else if (cmd.equals("/qWrite.do")) {
             action = new BoardWriteAction("/qList.do");
+        } else if (cmd.equals("/qRead.do")) {
+            action = new BoardReadAction("/view/qna_board_view.jsp");
         }
 
         ActionForward af = null;

@@ -94,6 +94,32 @@ public class BoardDao {
         return result;
     }
 
+    public BoardDto getRow(int bno) {
+        con = getConnection();
+        BoardDto dto = null;
+        String sql = "SELECT BNO,NAME,TITLE,CONTENT,ATTATCH FROM BOARD WHERE BNO=?";
+        try {
+            pstmt = con.prepareStatement(sql);
+            pstmt.setInt(1, bno);
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                dto = new BoardDto();
+                dto.setBno(rs.getInt("bno"));
+                dto.setName(rs.getString("name"));
+                dto.setTitle(rs.getString("title"));
+                dto.setContent(rs.getString("content"));
+                dto.setAttatch(rs.getString("attatch"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close(con, pstmt, rs);
+        }
+
+        return dto;
+    }
+
     public void close(Connection con, PreparedStatement pstmt, ResultSet rs) {
         try {
             if (rs != null) {

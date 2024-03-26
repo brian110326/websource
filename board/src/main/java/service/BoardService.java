@@ -8,4 +8,6 @@ public interface BoardService {
     List<BoardDto> list();
 
     boolean create(BoardDto insertDto);
+
+    BoardDto getRow(int bno);
 }

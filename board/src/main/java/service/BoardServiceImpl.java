@@ -19,4 +19,9 @@ public class BoardServiceImpl implements BoardService {
         return dao.create(insertDto) == 1;
     }
 
+    @Override
+    public BoardDto getRow(int bno) {
+        return dao.getRow(bno);
+    }
+
 }
