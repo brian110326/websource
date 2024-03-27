@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import action.Action;
 import action.ActionForward;
 import action.BoardListAction;
+import action.BoardModifyAction;
 import action.BoardReadAction;
 import action.BoardWriteAction;
 
@@ -37,6 +38,11 @@ public class BoardControllerServlet extends HttpServlet {
             action = new BoardWriteAction("/qList.do");
         } else if (cmd.equals("/qRead.do")) {
             action = new BoardReadAction("/view/qna_board_view.jsp");
+        } else if (cmd.equals("/qModify.do")) {
+            // BoardReadAction으로
+            action = new BoardReadAction("/view/qna_board_modify.jsp");
+        } else if (cmd.equals("/qUpdate.do")) {
+            action = new BoardModifyAction("/qRead.do");
         }
 
         ActionForward af = null;

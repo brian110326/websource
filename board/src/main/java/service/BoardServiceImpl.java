@@ -24,4 +24,9 @@ public class BoardServiceImpl implements BoardService {
         return dao.getRow(bno);
     }
 
+    @Override
+    public boolean update(BoardDto updateDto) {
+        return dao.update(updateDto) == 1;
+    }
+
 }

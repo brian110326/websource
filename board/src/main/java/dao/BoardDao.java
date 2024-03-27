@@ -94,6 +94,29 @@ public class BoardDao {
         return result;
     }
 
+    public int update(BoardDto updateDto) {
+        con = getConnection();
+        // bno와 password 일치 시 제목과 내용 수정
+        String sql = "UPDATE BOARD SET TITLE=?, CONTENT=? WHERE BNO=? AND PASSWORD=?";
+        int result = 0;
+
+        try {
+            pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, updateDto.getTitle());
+            pstmt.setString(2, updateDto.getContent());
+            pstmt.setInt(3, updateDto.getBno());
+            pstmt.setString(4, updateDto.getPassword());
+
+            result = pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close(con, pstmt);
+        }
+
+        return result;
+    }
+
     public BoardDto getRow(int bno) {
         con = getConnection();
         BoardDto dto = null;

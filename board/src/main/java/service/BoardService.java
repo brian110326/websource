@@ -10,4 +10,6 @@ public interface BoardService {
     boolean create(BoardDto insertDto);
 
     BoardDto getRow(int bno);
+
+    boolean update(BoardDto updateDto);
 }
