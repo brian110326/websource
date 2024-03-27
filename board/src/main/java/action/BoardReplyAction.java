@@ -38,6 +38,8 @@ public class BoardReplyAction implements Action {
         replyDto.setReSeq(Integer.parseInt(reSeq));
 
         if (!service.reply(replyDto)) {
+            // path 설정할 때 최종적으로 jsp파일로 가야한다면
+            // 중간에 .do파일을 거치는지 여부를 꼭 확인하기
             path = "/qReplyView.do?bno=" + bno;
         }
 
