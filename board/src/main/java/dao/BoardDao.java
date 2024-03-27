@@ -117,6 +117,25 @@ public class BoardDao {
         return result;
     }
 
+    public int delete(BoardDto deleteDto) {
+        con = getConnection();
+        String sql = "DELETE FROM BOARD WHERE BNO=? AND PASSWORD=?";
+        int result = 0;
+        try {
+            pstmt = con.prepareStatement(sql);
+            pstmt.setInt(1, deleteDto.getBno());
+            pstmt.setString(2, deleteDto.getPassword());
+
+            result = pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close(con, pstmt);
+        }
+
+        return result;
+    }
+
     public BoardDto getRow(int bno) {
         con = getConnection();
         BoardDto dto = null;

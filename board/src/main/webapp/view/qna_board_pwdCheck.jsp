@@ -17,6 +17,12 @@
 					<button type="submit" class="btn btn-primary">확인</button>
 				</div>
 			</div>
+			<%-- ${} => setAttribute한 경우 --%>
+			<%-- <%= %> => 주소줄에 따라오는 경우(bno) --%>
+			<%-- read.js참고 --%>
+			<%-- <% %> : 자바코드 --%>
+			<%-- <%= %> : 안에 객체 변수 넣을때 --%>
+			<input type="hidden" name="bno" value='<%= request.getParameter("bno") %>'>
 		</form>
 	</div>
 </section>

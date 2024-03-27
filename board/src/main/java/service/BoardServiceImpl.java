@@ -29,4 +29,9 @@ public class BoardServiceImpl implements BoardService {
         return dao.update(updateDto) == 1;
     }
 
+    @Override
+    public boolean delete(BoardDto deleteDto) {
+        return dao.delete(deleteDto) == 1;
+    }
+
 }
