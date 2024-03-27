@@ -10,3 +10,7 @@ document.querySelector("#modify").addEventListener("click", (e) => {
 document.querySelector("#delete").addEventListener("click", (e) => {
   location.href = "/view/qna_board_pwdCheck.jsp?bno=" + bno;
 });
+
+document.querySelector("#reply").addEventListener("click", (e) => {
+  location.href = "/qReplyView.do?bno=" + bno;
+});

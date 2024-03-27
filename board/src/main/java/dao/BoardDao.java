@@ -43,7 +43,7 @@ public class BoardDao {
 
     public List<BoardDto> getList() {
         con = getConnection();
-        String sql = "SELECT BNO,TITLE,NAME,REGDATE,READ_COUNT FROM BOARD ORDER BY BNO";
+        String sql = "SELECT BNO ,TITLE ,NAME ,REGDATE ,READ_COUNT ,RE_LEV  FROM BOARD b ORDER BY RE_REF DESC, RE_SEQ";
         List<BoardDto> list = new ArrayList<>();
 
         try {
@@ -57,6 +57,7 @@ public class BoardDao {
                 dto.setName(rs.getString(3));
                 dto.setRegDate(rs.getDate(4));
                 dto.setReadCount(rs.getInt(5));
+                dto.setReLev(rs.getInt(6));
 
                 list.add(dto);
             }
@@ -139,7 +140,7 @@ public class BoardDao {
     public BoardDto getRow(int bno) {
         con = getConnection();
         BoardDto dto = null;
-        String sql = "SELECT BNO,NAME,TITLE,CONTENT,ATTATCH FROM BOARD WHERE BNO=?";
+        String sql = "SELECT BNO,NAME,TITLE,CONTENT,ATTATCH, re_ref,re_seq,re_lev FROM BOARD WHERE BNO=?";
         try {
             pstmt = con.prepareStatement(sql);
             pstmt.setInt(1, bno);
@@ -152,6 +153,10 @@ public class BoardDao {
                 dto.setTitle(rs.getString("title"));
                 dto.setContent(rs.getString("content"));
                 dto.setAttatch(rs.getString("attatch"));
+                // reply에서 필요
+                dto.setReRef(rs.getInt("re_ref"));
+                dto.setReSeq(rs.getInt("re_seq"));
+                dto.setReLev(rs.getInt("re_lev"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
