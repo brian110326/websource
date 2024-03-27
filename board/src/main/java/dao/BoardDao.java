@@ -167,6 +167,45 @@ public class BoardDao {
         return dto;
     }
 
+    // 댓글 작성
+    public int reply(BoardDto replyDto) {
+        con = getConnection();
+        int result = 0;
+
+        try {
+            // 원본글의 re_ref, re_lev,re_seq 가져오기
+            int reRef = replyDto.getReRef();
+            int reSeq = replyDto.getReSeq();
+            int reLev = replyDto.getReLev();
+
+            String sql = "UPDATE BOARD SET RE_SEQ = RE_SEQ + 1 WHERE RE_REF = ? AND RE_SEQ > ?";
+
+            pstmt = con.prepareStatement(sql);
+            pstmt.setInt(1, reRef);
+            pstmt.setInt(2, reSeq);
+
+            pstmt.executeUpdate();
+
+            sql = "INSERT INTO board(bno,name,password,title,content,re_ref,re_lev,re_seq) VALUES(board_seq.nextval,?,?,?,?,?,?,?)";
+            pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, replyDto.getName());
+            pstmt.setString(2, replyDto.getPassword());
+            pstmt.setString(3, replyDto.getTitle());
+            pstmt.setString(4, replyDto.getContent());
+            pstmt.setInt(5, reRef);
+            pstmt.setInt(6, reLev + 1);
+            pstmt.setInt(7, reSeq + 1);
+
+            result = pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close(con, pstmt);
+        }
+
+        return result;
+    }
+
     public void close(Connection con, PreparedStatement pstmt, ResultSet rs) {
         try {
             if (rs != null) {

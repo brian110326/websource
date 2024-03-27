@@ -16,7 +16,7 @@ import action.BoardDeleteAction;
 import action.BoardListAction;
 import action.BoardModifyAction;
 import action.BoardReadAction;
-import action.BoardReplyViewAction;
+import action.BoardReplyAction;
 import action.BoardWriteAction;
 
 @WebServlet("*.do")
@@ -49,6 +49,8 @@ public class BoardControllerServlet extends HttpServlet {
             action = new BoardDeleteAction("/qList.do");
         } else if (cmd.equals("/qReplyView.do")) {
             action = new BoardReadAction("/view/qna_board_reply.jsp");
+        } else if (cmd.equals("/qReply.do")) {
+            action = new BoardReplyAction("/qList.do");
         }
 
         ActionForward af = null;

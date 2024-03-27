@@ -34,4 +34,9 @@ public class BoardServiceImpl implements BoardService {
         return dao.delete(deleteDto) == 1;
     }
 
+    @Override
+    public boolean reply(BoardDto replyDto) {
+        return dao.reply(replyDto) == 1;
+    }
+
 }
