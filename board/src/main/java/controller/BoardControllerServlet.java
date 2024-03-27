@@ -45,7 +45,7 @@ public class BoardControllerServlet extends HttpServlet {
         } else if (cmd.equals("/qUpdate.do")) {
             action = new BoardModifyAction("/qRead.do");
         } else if (cmd.equals("/qDelete.do")) {
-            action = new BoardDeleteAction("/");
+            action = new BoardDeleteAction("/qList.do");
         }
 
         ActionForward af = null;

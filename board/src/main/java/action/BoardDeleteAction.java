@@ -25,7 +25,7 @@ public class BoardDeleteAction implements Action {
         deleteDto.setPassword(password);
 
         if (!service.delete(deleteDto)) {
-            path = "/view/qna_board_pwdCheck.jsp";
+            path = "/view/qna_board_pwdCheck.jsp?bno=" + deleteDto.getBno();
         }
 
         return new ActionForward(path, true);
