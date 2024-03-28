@@ -1,3 +1,6 @@
+// page 영역 가져오기
+const pagination = document.querySelector(".pagination");
+console.log(pagination);
 // 검색 폼
 // criteria, keyword 비어있는지 확인
 const criteria = document.querySelector('[name="criteria"]');

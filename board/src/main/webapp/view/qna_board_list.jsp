@@ -64,7 +64,7 @@
 
 						<c:if test="${pageDto.prev}">
 							<li class="page-item">
-								<a class="page-link">Previous</a>
+								<a class="page-link" href="${pageDto.startPage - 1}">Previous</a>
 							</li>
 						</c:if>
 						
@@ -76,7 +76,7 @@
 
 						<c:if test="${pageDto.next}">
 							<li class="page-item">
-								<a class="page-link" href="#">Next</a>
+								<a class="page-link" href="${pageDto.endPage + 1}">Next</a>
 							</li>
 						</c:if>
 
@@ -87,5 +87,13 @@
 		<div style="height:20px"></div>
 	</div>	
 </section>
+
+<form action="" method="get" id="actionForm">
+	<input type="hidden" name="page" value="${pageDto.searchDto.page}">
+	<input type="hidden" name="amount" value="${pageDto.searchDto.amount}">
+	<input type="hidden" name="criteria" value="${pageDto.searchDto.criteria}">
+	<input type="hidden" name="keyword" value="${pageDto.searchDto.keyword}">
+</form>
+
 <script src='<c:url value="/js/list.js" />'></script>
 <%@include file="/include/footer.jsp"%>
