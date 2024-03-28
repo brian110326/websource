@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import dto.BoardDto;
+import dto.PageDto;
 import dto.SearchDto;
 import service.BoardService;
 import service.BoardServiceImpl;
@@ -23,12 +24,17 @@ public class BoardListAction implements Action {
         int page = Integer.parseInt(req.getParameter("page"));
         int amount = Integer.parseInt(req.getParameter("amount"));
 
-        SearchDto searchDto = new SearchDto(0, 0);
-        searchDto.setAmount(amount);
-        searchDto.setPage(page);
+        String criteria = req.getParameter("criteria");
+        String keyword = req.getParameter("keyword");
+
+        SearchDto searchDto = new SearchDto(page, amount, criteria, keyword);
+        PageDto pageDto = new PageDto(searchDto, service.getRows(criteria, keyword));
 
         List<BoardDto> list = service.list(searchDto);
+
         req.setAttribute("list", list);
+        req.setAttribute("pageDto", pageDto); // searchDto 포함됨
+
         return new ActionForward(path, false);
     }
 

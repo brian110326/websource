@@ -43,6 +43,36 @@ public class BoardDao {
         return con;
     }
 
+    // 전체 게시물 개수 가져오기
+    public int getRows(String criteria, String keyword) {
+        con = getConnection();
+        int total = 0;
+
+        try {
+            String sql = "";
+            if (criteria.isEmpty()) {
+                sql += "SELECT COUNT(*)  FROM BOARD";
+                pstmt = con.prepareStatement(sql);
+            } else {
+                sql += "SELECT COUNT(*)  FROM BOARD WHERE " + criteria + " LIKE ?";
+                pstmt.setString(1, "%" + keyword + "%");
+                pstmt = con.prepareStatement(sql);
+            }
+
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                total = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close(con, pstmt);
+        }
+
+        return total;
+    }
+
     public List<BoardDto> getList(SearchDto searchDto) {
         con = getConnection();
         // String sql = "SELECT BNO ,TITLE ,NAME ,REGDATE ,READ_COUNT ,RE_LEV FROM BOARD

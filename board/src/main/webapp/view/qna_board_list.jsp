@@ -11,7 +11,7 @@
 				<a href='<c:url value="/view/qna_board_write.jsp" />' class="btn btn-success">글쓰기</a>
 			</div><!--글쓰기 버튼-->
 			<div class="col-md-5"><!--검색 들어갈 부분-->
-				<form action='<c:url value="/qSearch.do" />' method="post" name="search" class="form-inline">
+				<form action='<c:url value="/qList.do" />' method="post" name="search" class="form-inline">
 					<div class="form-group">
 						<select name="criteria" id="criteria" class="form-control">
 							<option value="n" <c:out value="${search.criteria == null?'selected':''}" /> >---------------</option>

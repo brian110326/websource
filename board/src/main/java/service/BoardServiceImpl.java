@@ -50,4 +50,9 @@ public class BoardServiceImpl implements BoardService {
         return dao.getSearchList(searchDto);
     }
 
+    @Override
+    public int getRows(String criteria, String keyword) {
+        return dao.getRows(criteria, keyword);
+    }
+
 }

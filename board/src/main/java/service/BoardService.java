@@ -21,4 +21,7 @@ public interface BoardService {
     boolean updateCount(int bno);
 
     List<BoardDto> searchList(SearchDto searchDto);
+
+    int getRows(String criteria, String keyword);
+
 }
