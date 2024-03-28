@@ -16,4 +16,6 @@ public interface BoardService {
     boolean delete(BoardDto deleteDto);
 
     boolean reply(BoardDto replyDto);
+
+    boolean updateCount(int bno);
 }

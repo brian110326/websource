@@ -206,6 +206,26 @@ public class BoardDao {
         return result;
     }
 
+    // 조회수 업데이트
+    public int updateCount(int bno) {
+        con = getConnection();
+        int result = 0;
+        String sql = "UPDATE BOARD SET READ_COUNT = READ_COUNT + 1 WHERE BNO = ?";
+
+        try {
+            pstmt = con.prepareStatement(sql);
+            pstmt.setInt(1, bno);
+
+            result = pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close(con, pstmt);
+        }
+
+        return result;
+    }
+
     public void close(Connection con, PreparedStatement pstmt, ResultSet rs) {
         try {
             if (rs != null) {

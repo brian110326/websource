@@ -6,28 +6,30 @@
 		<div class="box-header">
 			<h3 class="box-title">List Board</h3>
 		</div>
-		<div class="row justify-content-between">
+		<div class="row  justify-content-between">
 			<div class="col-md-4">
-				<a href='<c:url value="/view/qna_board_write.jsp" />' class="btn btn-success">글쓰기</a>
-			</div><!--글쓰기 버튼-->
-			<div class="col-md-5"><!--검색 들어갈 부분-->
-				<form action="" method="get">
-					<div class="form-group">
-						<select name="criteria" id="criteria" class="form-control">
-							<option value="n">---------------</option>
-							<option value="title">제목</option>
-							<option value="content">내용</option>
-							<option value="name">작성자</option>
-						</select>
-					</div>
-					<div class="form-group">
-						<input type="text" name="keword" id="" class="form-control">
-					</div>
-					<div class="form-group">
-						<button type="button" class="btn btn-primary">검색</button>
-					</div>				
-				</form>
+				<!--글쓰기 버튼-->
+				<a href='<c:url value="/view/qna_board_write.jsp" />' class="btn btn-success">새글 작성</a>
 			</div>
+			<div class="col-md-5">
+			<!--검색 들어갈 부분-->
+			  <form action="" method="post" name="search" class="form-inline">
+				<div class="form-group">
+					<select name="criteria" class="form-control">
+						<option value="n" >---</option>
+						<option value="title" >title</option>
+						<option value="content" >content</option>
+						<option value="name" >name</option>					
+					</select>
+				</div>
+				<div class="form-group">
+					<input type="text" name="keyword" value="" class="form-control">				
+				</div>
+				<div class="form-group">
+					<input type="button" value="검색" class="btn btn-primary">				
+				</div>
+			   </form>
+			</div>			
 		</div>
 		<br>
 		<table class="table table-bordered">
@@ -43,18 +45,17 @@
 					<td class='text-center'>${dto.bno}</td><!--번호-->
 					<td>
 						<!--제목-->
-						<c:if test="${dto.reLev != 0}">
-							<c:forEach begin="0" end="${dto.reLev * 1}">
-							<%-- &nbsp : 공백한칸 --%>
-								&nbsp; 
-							</c:forEach>
+						<c:if test="${dto.reLev!=0}"> 
+							<c:forEach begin="0" end="${dto.reLev*1}">
+								&nbsp;
+							</c:forEach>						
 						</c:if>
-						<a href='<c:url value="qRead.do?bno=${dto.bno}" />'>${dto.title}</a>
+						<a href='<c:url value="/qRead.do?bno=${dto.bno}" />'>${dto.title}</a>
 					</td>
 					<td class='text-center'>${dto.name}</td><!--작성자-->
 					<td class='text-center'>${dto.regDate}</td><!--날짜-->
 					<td class='text-center'><span class="badge badge-pill badge-primary">${dto.readCount}</span></td>
-				</tr>	
+				</tr>		
 			</c:forEach>
 		</table>
 		<div class="container">
@@ -69,4 +70,5 @@
 		<div style="height:20px"></div>
 	</div>	
 </section>
+<script src='<c:url value="/js/list.js" />'></script>
 <%@include file="/include/footer.jsp"%>

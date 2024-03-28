@@ -39,4 +39,9 @@ public class BoardServiceImpl implements BoardService {
         return dao.reply(replyDto) == 1;
     }
 
+    @Override
+    public boolean updateCount(int bno) {
+        return dao.updateCount(bno) == 1;
+    }
+
 }
