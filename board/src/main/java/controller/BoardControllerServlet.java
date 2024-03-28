@@ -56,9 +56,11 @@ public class BoardControllerServlet extends HttpServlet {
         } else if (cmd.equals("/qCount.do")) {
             // 새로고침을 하면 qRead.do로 다시 가기때문에 qCount.do로 가지않아 조회수가 증가되지 않는다
             action = new BoardUpdateCountAction("/qRead.do");
-        } else if (cmd.equals("/qSearch.do")) {
-            action = new BoardSearchAction("/view/qna_board_list.jsp");
         }
+
+        // else if (cmd.equals("/qSearch.do")) {
+        // action = new BoardSearchAction("/view/qna_board_list.jsp");
+        // }
 
         ActionForward af = null;
         try {

@@ -22,6 +22,7 @@ public class PageDto {
         endPage = (int) (Math.ceil(searchDto.getPage() / 10.0)) * 10;
         startPage = endPage - 9;
 
+        // getAmount : 페이지당 게시물 수
         int realEnd = (int) (Math.ceil((total / 1.0) / searchDto.getAmount()));
 
         if (realEnd < this.endPage) {
