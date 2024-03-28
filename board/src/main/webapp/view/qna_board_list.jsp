@@ -14,14 +14,14 @@
 				<form action='<c:url value="/qSearch.do" />' method="post" name="search" class="form-inline">
 					<div class="form-group">
 						<select name="criteria" id="criteria" class="form-control">
-							<option value="n">---------------</option>
-							<option value="title">제목</option>
-							<option value="content">내용</option>
-							<option value="name">작성자</option>
+							<option value="n" <c:out value="${search.criteria == null?'selected':''}" /> >---------------</option>
+							<option value="title" <c:out value="${search.criteria == 'title'?'selected':''}" /> >제목</option>
+							<option value="content" <c:out value="${search.criteria == 'content'?'selected':''}" /> >내용</option>
+							<option value="name" <c:out value="${search.criteria == 'name'?'selected':''}" /> >작성자</option>
 						</select>
 					</div>
 					<div class="form-group">
-						<input type="text" name="keyword" value="" class="form-control">
+						<input type="text" name="keyword" value="${search.keyword}" class="form-control">
 					</div>
 					<div class="form-group">
 						<input type="submit" value="검색" class="btn btn-primary">

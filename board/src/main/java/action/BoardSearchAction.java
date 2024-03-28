@@ -31,6 +31,9 @@ public class BoardSearchAction implements Action {
         List<BoardDto> list = service.searchList(searchDto);
 
         req.setAttribute("list", list);
+
+        // 검색조건과 검색에 어떤 것을 넣었는지 나타내주기 위해서
+        req.setAttribute("search", searchDto);
         return new ActionForward(path, false);
     }
 

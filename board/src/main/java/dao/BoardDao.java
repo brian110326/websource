@@ -44,11 +44,24 @@ public class BoardDao {
 
     public List<BoardDto> getList() {
         con = getConnection();
-        String sql = "SELECT BNO ,TITLE ,NAME ,REGDATE ,READ_COUNT ,RE_LEV  FROM BOARD b ORDER BY RE_REF DESC, RE_SEQ";
+        // String sql = "SELECT BNO ,TITLE ,NAME ,REGDATE ,READ_COUNT ,RE_LEV FROM BOARD
+        // b ORDER BY RE_REF DESC, RE_SEQ";
+
+        String sql = "SELECT bno, title, name, REGDATE ,READ_COUNT ,RE_LEV ";
+        sql += "FROM(SELECT rownum AS rnum, A.* ";
+        sql += "FROM (SELECT rownum, bno, title, name, REGDATE ,READ_COUNT ,RE_LEV ";
+        sql += "FROM BOARD b WHERE bno > 0 ";
+        sql += "ORDER BY RE_REF DESC, RE_SEQ) A ";
+        sql += "WHERE rownum <= ?) WHERE rnum > ?";
         List<BoardDto> list = new ArrayList<>();
+
+        int start = 0;
+        int end = 0;
 
         try {
             pstmt = con.prepareStatement(sql);
+            pstmt.setInt(1, start);
+            pstmt.setInt(2, end);
             rs = pstmt.executeQuery();
 
             while (rs.next()) {
