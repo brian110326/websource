@@ -12,6 +12,7 @@ import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 import dto.BoardDto;
+import dto.SearchDto;
 
 public class BoardDao {
     Connection con = null;
@@ -224,6 +225,40 @@ public class BoardDao {
         }
 
         return result;
+    }
+
+    public List<BoardDto> getSearchList(SearchDto searchDto) {
+        con = getConnection();
+        String sql = "SELECT BNO ,TITLE ,NAME ,REGDATE ,READ_COUNT ,RE_LEV ";
+        // 필드명은 ? 처리 불가, 값만 가능
+        // sql문 띄어쓰기 잘 보기
+        sql += "FROM BOARD WHERE " + searchDto.getCriteria() + " LIKE ?";
+        sql += "ORDER BY RE_REF DESC, RE_SEQ";
+        List<BoardDto> list = new ArrayList<>();
+
+        try {
+            pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, "%" + searchDto.getKeyword() + "%");
+            rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                BoardDto dto = new BoardDto();
+                dto.setBno(rs.getInt(1));
+                dto.setTitle(rs.getString(2));
+                dto.setName(rs.getString(3));
+                dto.setRegDate(rs.getDate(4));
+                dto.setReadCount(rs.getInt(5));
+                dto.setReLev(rs.getInt(6));
+
+                list.add(dto);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close(con, pstmt, rs);
+        }
+
+        return list;
     }
 
     public void close(Connection con, PreparedStatement pstmt, ResultSet rs) {

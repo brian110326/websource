@@ -4,6 +4,7 @@ import java.util.List;
 
 import dao.BoardDao;
 import dto.BoardDto;
+import dto.SearchDto;
 
 public class BoardServiceImpl implements BoardService {
 
@@ -42,6 +43,11 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public boolean updateCount(int bno) {
         return dao.updateCount(bno) == 1;
+    }
+
+    @Override
+    public List<BoardDto> searchList(SearchDto searchDto) {
+        return dao.getSearchList(searchDto);
     }
 
 }

@@ -3,6 +3,7 @@ package service;
 import java.util.List;
 
 import dto.BoardDto;
+import dto.SearchDto;
 
 public interface BoardService {
     List<BoardDto> list();
@@ -18,4 +19,6 @@ public interface BoardService {
     boolean reply(BoardDto replyDto);
 
     boolean updateCount(int bno);
+
+    List<BoardDto> searchList(SearchDto searchDto);
 }
