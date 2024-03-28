@@ -11,8 +11,8 @@ public class BoardServiceImpl implements BoardService {
     BoardDao dao = new BoardDao();
 
     @Override
-    public List<BoardDto> list() {
-        return dao.getList();
+    public List<BoardDto> list(SearchDto searchDto) {
+        return dao.getList(searchDto);
     }
 
     @Override

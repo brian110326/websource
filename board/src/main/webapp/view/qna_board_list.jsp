@@ -59,10 +59,20 @@
 		</table>
 		<div class="container">
 			<div class="row  justify-content-md-center">
-				<nav aria-label="Page navigation example">
-				  <ul class="pagination"><!--하단의 페이지 나누기 부분-->
-
-				  </ul>
+				<nav aria-label="...">
+					<ul class="pagination">
+						<li class="page-item disabled">
+							<a class="page-link">Previous</a>
+						</li>
+						<li class="page-item"><a class="page-link" href="#">1</a></li>
+						<li class="page-item active" aria-current="page">
+							<a class="page-link" href="#">2</a>
+						</li>
+						<li class="page-item"><a class="page-link" href="#">3</a></li>
+						<li class="page-item">
+							<a class="page-link" href="#">Next</a>
+						</li>
+					</ul>
 				</nav>					
 			</div>
 		</div>

@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.sql.DataSource;
 
 import dto.BoardDto;
@@ -42,26 +43,48 @@ public class BoardDao {
         return con;
     }
 
-    public List<BoardDto> getList() {
+    public List<BoardDto> getList(SearchDto searchDto) {
         con = getConnection();
         // String sql = "SELECT BNO ,TITLE ,NAME ,REGDATE ,READ_COUNT ,RE_LEV FROM BOARD
         // b ORDER BY RE_REF DESC, RE_SEQ";
 
-        String sql = "SELECT bno, title, name, REGDATE ,READ_COUNT ,RE_LEV ";
-        sql += "FROM(SELECT rownum AS rnum, A.* ";
-        sql += "FROM (SELECT rownum, bno, title, name, REGDATE ,READ_COUNT ,RE_LEV ";
-        sql += "FROM BOARD b WHERE bno > 0 ";
-        sql += "ORDER BY RE_REF DESC, RE_SEQ) A ";
-        sql += "WHERE rownum <= ?) WHERE rnum > ?";
         List<BoardDto> list = new ArrayList<>();
 
-        int start = 0;
-        int end = 0;
+        int start = searchDto.getPage() * searchDto.getAmount(); // 페이지번호 * 한페이지당 게시물수
+        int end = (searchDto.getPage() - 1) * searchDto.getAmount(); // (페이지번호 - 1) * 한페이지당 게시물수
 
         try {
-            pstmt = con.prepareStatement(sql);
-            pstmt.setInt(1, start);
-            pstmt.setInt(2, end);
+
+            String sql = "SELECT bno, title, name, REGDATE ,READ_COUNT ,RE_LEV ";
+            sql += "FROM(SELECT rownum AS rnum, A.* ";
+            sql += "FROM (SELECT rownum, bno, title, name, REGDATE ,READ_COUNT ,RE_LEV ";
+            sql += "FROM BOARD b WHERE bno > 0 ";
+
+            // 전체리스트 : http://localhost:8080/qList.do?page=1&amount=30&criteria=&keyword=
+            // 검색했을 때 : http://localhost:8080/qList.do?page=1&amount=30&criteria=값&keyword=값
+
+            if (searchDto.getCriteria().isEmpty()) {
+                // 전체리스트 일때
+                sql += "ORDER BY RE_REF DESC, RE_SEQ) A ";
+                sql += "WHERE rownum <= ?) WHERE rnum > ?";
+
+                pstmt = con.prepareStatement(sql);
+                pstmt.setInt(1, start);
+                pstmt.setInt(2, end);
+
+            } else {
+                // 검색한 경우
+                sql += " AND " + searchDto.getCriteria() + " LIKE ?";
+                sql += "ORDER BY RE_REF DESC, RE_SEQ) A ";
+                sql += "WHERE rownum <= ?) WHERE rnum > ?";
+
+                pstmt = con.prepareStatement(sql);
+                pstmt.setString(1, "%" + searchDto.getKeyword() + "%");
+                pstmt.setInt(2, start);
+                pstmt.setInt(3, end);
+
+            }
+
             rs = pstmt.executeQuery();
 
             while (rs.next()) {

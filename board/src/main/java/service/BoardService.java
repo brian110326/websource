@@ -6,7 +6,7 @@ import dto.BoardDto;
 import dto.SearchDto;
 
 public interface BoardService {
-    List<BoardDto> list();
+    List<BoardDto> list(SearchDto searchDto);
 
     boolean create(BoardDto insertDto);
 
