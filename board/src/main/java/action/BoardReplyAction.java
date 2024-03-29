@@ -1,5 +1,7 @@
 package action;
 
+import java.net.URLEncoder;
+
 import javax.servlet.http.HttpServletRequest;
 
 import dto.BoardDto;
@@ -31,7 +33,7 @@ public class BoardReplyAction implements Action {
         String page = req.getParameter("page");
         String amount = req.getParameter("amount");
         String criteria = req.getParameter("criteria");
-        String keyword = req.getParameter("keyword");
+        String keyword = URLEncoder.encode(req.getParameter("keyword"), "utf-8");
 
         BoardDto replyDto = new BoardDto();
         replyDto.setName(name);

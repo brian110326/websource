@@ -8,7 +8,7 @@
 		</div>
 		<div class="row justify-content-between">
 			<div class="col-md-4">
-				<a href='<c:url value="/view/qna_board_write.jsp" />' class="btn btn-success">글쓰기</a>
+				<a href='#' class="btn btn-success">글쓰기</a>
 			</div><!--글쓰기 버튼-->
 
 			<div class="col-md-3">

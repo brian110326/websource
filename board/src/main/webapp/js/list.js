@@ -3,6 +3,20 @@ const pagination = document.querySelector(".pagination");
 const actionForm = document.querySelector("#actionForm");
 console.log(pagination);
 
+// 글쓰기 작성 클릭 시 a 태그 기능 중지
+// actionForm 안에 page = 1, criteria="", keyword=""
+document.querySelector(".btn-success").addEventListener("click", (e) => {
+  e.preventDefault();
+
+  actionForm.querySelector('[name="page"]').value = 1;
+  actionForm.querySelector('[name="criteria"]').value = "";
+  actionForm.querySelector('[name="keyword"]').value = "";
+
+  actionForm.action = "/view/qna_board_write.jsp";
+  console.log(actionForm);
+  actionForm.submit();
+});
+
 // 제목 클릭시 a태그 기능중지
 // href값 가져오기
 // actionForm 안에 bno hidden 태그 추가
