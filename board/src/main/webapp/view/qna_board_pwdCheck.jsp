@@ -23,6 +23,10 @@
 			<%-- <% %> : 자바코드 --%>
 			<%-- <%= %> : 안에 객체 변수 넣을때 --%>
 			<input type="hidden" name="bno" value='<%= request.getParameter("bno") %>'>
+			<input type="hidden" name="page" value='<%= request.getParameter("page") %>'>
+			<input type="hidden" name="amount" value='<%= request.getParameter("amount") %>'>
+			<input type="hidden" name="criteria" value='<%= request.getParameter("criteria") %>'>
+			<input type="hidden" name="keyword" value='<%= request.getParameter("keyword") %>'>
 		</form>
 	</div>
 </section>
