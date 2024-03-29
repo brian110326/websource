@@ -45,31 +45,27 @@ public class BoardDao {
 
     // 전체 게시물 개수 가져오기
     public int getRows(String criteria, String keyword) {
-        con = getConnection();
         int total = 0;
-
         try {
+            con = getConnection();
             String sql = "";
             if (criteria.isEmpty()) {
-                sql += "SELECT COUNT(*)  FROM BOARD";
+                sql += "SELECT COUNT(*) FROM board";
                 pstmt = con.prepareStatement(sql);
             } else {
-                sql += "SELECT COUNT(*)  FROM BOARD WHERE " + criteria + " LIKE ?";
-                pstmt.setString(1, "%" + keyword + "%");
+                sql += "SELECT COUNT(*) FROM board WHERE " + criteria + " like ?";
                 pstmt = con.prepareStatement(sql);
+                pstmt.setString(1, "%" + keyword + "%");
             }
-
             rs = pstmt.executeQuery();
-
             if (rs.next()) {
                 total = rs.getInt(1);
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            close(con, pstmt);
+            close(con, pstmt, rs);
         }
-
         return total;
     }
 

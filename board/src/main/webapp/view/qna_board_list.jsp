@@ -10,8 +10,21 @@
 			<div class="col-md-4">
 				<a href='<c:url value="/view/qna_board_write.jsp" />' class="btn btn-success">글쓰기</a>
 			</div><!--글쓰기 버튼-->
+
+			<div class="col-md-3">
+				<select name="amount" class="form-control">
+					<option value="10" <c:out value="${pageDto.searchDto.amount == 10?'selected':''}" /> >10</option>
+					<option value="20" <c:out value="${pageDto.searchDto.amount == 20?'selected':''}" /> >20</option>
+					<option value="30" <c:out value="${pageDto.searchDto.amount == 30?'selected':''}" /> >30</option>
+					<option value="40" <c:out value="${pageDto.searchDto.amount == 40?'selected':''}" /> >40</option>
+				</select>
+			</div>
+
 			<div class="col-md-5"><!--검색 들어갈 부분-->
-				<form action='<c:url value="/qList.do" />' method="post" name="search" class="form-inline">
+				<form action='<c:url value="/qList.do" />' method="get" name="search" class="form-inline">
+					<input type="hidden" name="page" value="${pageDto.searchDto.page}">
+					<input type="hidden" name="amount" value="${pageDto.searchDto.amount}">
+
 					<div class="form-group">
 						<select name="criteria" id="criteria" class="form-control">
 							<option value="n" <c:out value="${pageDto.searchDto.criteria == null?'selected':''}" /> >---------------</option>
@@ -49,7 +62,7 @@
 								&nbsp; 
 							</c:forEach>
 						</c:if>
-						<a href='<c:url value="qCount.do?bno=${dto.bno}" />'>${dto.title}</a>
+						<a href='${dto.bno}' class="move" >${dto.title}</a>
 					</td>
 					<td class='text-center'>${dto.name}</td><!--작성자-->
 					<td class='text-center'>${dto.regDate}</td><!--날짜-->
@@ -88,7 +101,7 @@
 	</div>	
 </section>
 
-<form action="" method="get" id="actionForm">
+<form action='<c:url value="/qList.do" />' method="get" id="actionForm">
 	<input type="hidden" name="page" value="${pageDto.searchDto.page}">
 	<input type="hidden" name="amount" value="${pageDto.searchDto.amount}">
 	<input type="hidden" name="criteria" value="${pageDto.searchDto.criteria}">
