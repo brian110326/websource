@@ -3,6 +3,7 @@ package action;
 import javax.servlet.http.HttpServletRequest;
 
 import dto.BoardDto;
+import dto.SearchDto;
 import service.BoardService;
 import service.BoardServiceImpl;
 
@@ -27,6 +28,11 @@ public class BoardReplyAction implements Action {
         String reSeq = req.getParameter("reSeq");
         String bno = req.getParameter("bno");
 
+        String page = req.getParameter("page");
+        String amount = req.getParameter("amount");
+        String criteria = req.getParameter("criteria");
+        String keyword = req.getParameter("keyword");
+
         BoardDto replyDto = new BoardDto();
         replyDto.setName(name);
         replyDto.setTitle(title);
@@ -40,7 +46,12 @@ public class BoardReplyAction implements Action {
         if (!service.reply(replyDto)) {
             // path 설정할 때 최종적으로 jsp파일로 가야한다면
             // 중간에 .do파일을 거치는지 여부를 꼭 확인하기
-            path = "/qReplyView.do?bno=" + bno;
+            path = "/qReplyView.do?bno=" + bno + "&page=" + page + "&amount=" + amount + "&criteria=" + criteria
+                    + "&keyword="
+                    + keyword;
+        } else {
+            path += "?page=" + page + "&amount=" + amount + "&criteria=" + criteria + "&keyword="
+                    + keyword;
         }
 
         return new ActionForward(path, true);
