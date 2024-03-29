@@ -200,12 +200,28 @@ public class BoardDao {
         return result;
     }
 
-    public boolean bnoreRefTest(int bno, int reRef) {
-        if (bno == reRef) {
-            return true;
+    public int pwdCheck(BoardDto passDto) {
+        con = getConnection();
+        int result = 0;
+
+        String sql = "SELECT COUNT(*) FROM BOARD WHERE BNO=? AND PASSWORD=?";
+        try {
+            pstmt = con.prepareStatement(sql);
+            pstmt.setInt(1, passDto.getBno());
+            pstmt.setString(2, passDto.getPassword());
+
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                result = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close(con, pstmt, rs);
         }
 
-        return false;
+        return result;
     }
 
     public int deleteAll(int reRef) {

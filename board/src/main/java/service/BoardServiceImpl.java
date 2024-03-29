@@ -56,13 +56,13 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public boolean bnoreRefTest(int bno, int reRef) {
-        return dao.bnoreRefTest(bno, reRef);
+    public boolean deleteAll(int reRef) {
+        return dao.deleteAll(reRef) == 1;
     }
 
     @Override
-    public boolean deleteAll(int reRef) {
-        return dao.deleteAll(reRef) == 1;
+    public boolean pwdCheck(BoardDto passDto) {
+        return dao.pwdCheck(passDto) == 1;
     }
 
 }

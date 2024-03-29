@@ -26,6 +26,6 @@ public interface BoardService {
 
     boolean deleteAll(int reRef);
 
-    boolean bnoreRefTest(int bno, int reRef);
+    boolean pwdCheck(BoardDto passDto);
 
 }

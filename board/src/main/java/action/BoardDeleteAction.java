@@ -36,17 +36,28 @@ public class BoardDeleteAction implements Action {
         // bno == re_ref : 원본글
         // 비밀번호 확인후 일치한다면
         // deleteAll 호출
-        if (service.bnoreRefTest(Integer.parseInt(bno), deleteDto.getReRef())) {
-            service.deleteAll(deleteDto.getReRef());
-        }
 
-        if (!service.delete(deleteDto)) {
-            path = "/view/qna_board_pwdCheck.jsp?bno=" + deleteDto.getBno() + "&page=" + page + "&amount=" + amount
-                    + "&criteria=" + criteria + "&keyword="
-                    + keyword;
+        BoardDto dto = service.getRow(deleteDto.getBno());
+
+        if (dto.getBno() == dto.getReRef()) {
+            if (service.pwdCheck(deleteDto)) {
+                service.deleteAll(dto.getReRef());
+                path += "?page=" + page + "&amount=" + amount + "&criteria=" + criteria + "&keyword="
+                        + keyword;
+            } else {
+                path = "/view/qna_board_pwdCheck.jsp?bno=" + deleteDto.getBno() + "&page=" + page + "&amount=" + amount
+                        + "&criteria=" + criteria + "&keyword="
+                        + keyword;
+            }
         } else {
-            path += "?page=" + page + "&amount=" + amount + "&criteria=" + criteria + "&keyword="
-                    + keyword;
+            if (!service.delete(deleteDto)) {
+                path = "/view/qna_board_pwdCheck.jsp?bno=" + deleteDto.getBno() + "&page=" + page + "&amount=" + amount
+                        + "&criteria=" + criteria + "&keyword="
+                        + keyword;
+            } else {
+                path += "?page=" + page + "&amount=" + amount + "&criteria=" + criteria + "&keyword="
+                        + keyword;
+            }
         }
 
         return new ActionForward(path, true);
