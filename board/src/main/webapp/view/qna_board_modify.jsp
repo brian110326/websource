@@ -41,6 +41,7 @@
 					</div>
 				</div>
 				<div style="height:20px"></div>
+				<input type="hidden" name="bno" value="${dto.bno}">
 				<div class="box-footer text-center">
 					<button type="submit" class="btn btn-primary">수정</button>
 					<button type="button" class="btn btn-danger">목록</button>
@@ -49,7 +50,11 @@
 			</div>
 			<%-- 아무데나 가능 form 태그 안에만 있으면 됨 --%>
 			<%-- BoardModifyAction에서 bno를 가져올 것이 없었음 --%>
-			<input type="hidden" name="bno" value="${dto.bno}">
+			
+			<input type="hidden" name="page" value="${searchDto.page}">
+			<input type="hidden" name="amount" value="${searchDto.amount}">
+			<input type="hidden" name="criteria" value="${searchDto.criteria}">
+			<input type="hidden" name="keyword" value="${searchDto.keyword}">
 		</form>
 	</div>
 </section>
