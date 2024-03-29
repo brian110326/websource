@@ -1,5 +1,8 @@
+const actionForm = document.querySelector("#actionForm");
+
 document.querySelector("#list").addEventListener("click", (e) => {
-  location.href = "/qList.do";
+  // location.href = "/qList.do";
+  actionForm.submit();
 });
 
 document.querySelector("#modify").addEventListener("click", (e) => {

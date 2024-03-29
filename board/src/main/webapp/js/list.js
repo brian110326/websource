@@ -22,7 +22,8 @@ moves.forEach((move) => {
     actionForm.action = "/qCount.do";
 
     console.log(actionForm);
-    // actionForm.submit();
+
+    actionForm.submit();
   });
 });
 

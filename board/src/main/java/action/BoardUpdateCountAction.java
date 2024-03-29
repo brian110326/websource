@@ -1,8 +1,11 @@
 package action;
 
+import java.net.URLEncoder;
+
 import javax.servlet.http.HttpServletRequest;
 
 import dto.BoardDto;
+import dto.SearchDto;
 import service.BoardService;
 import service.BoardServiceImpl;
 
@@ -23,7 +26,9 @@ public class BoardUpdateCountAction implements Action {
         String page = req.getParameter("page");
         String amount = req.getParameter("amount");
         String criteria = req.getParameter("criteria");
-        String keyword = req.getParameter("keyword");
+
+        // 한글일 경우 get 방식으로 넘어올 때 깨짐 ==> encoding
+        String keyword = URLEncoder.encode(req.getParameter("keyword"), "utf-8");
 
         service.updateCount(Integer.parseInt(bno));
 
