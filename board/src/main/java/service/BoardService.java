@@ -24,4 +24,8 @@ public interface BoardService {
 
     int getRows(String criteria, String keyword);
 
+    boolean deleteAll(int reRef);
+
+    boolean bnoreRefTest(int bno, int reRef);
+
 }

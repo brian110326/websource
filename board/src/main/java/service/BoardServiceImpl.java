@@ -55,4 +55,14 @@ public class BoardServiceImpl implements BoardService {
         return dao.getRows(criteria, keyword);
     }
 
+    @Override
+    public boolean bnoreRefTest(int bno, int reRef) {
+        return dao.bnoreRefTest(bno, reRef);
+    }
+
+    @Override
+    public boolean deleteAll(int reRef) {
+        return dao.deleteAll(reRef) == 1;
+    }
+
 }

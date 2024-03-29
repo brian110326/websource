@@ -28,5 +28,7 @@ document.querySelector("form").addEventListener("submit", (e) => {
 });
 
 document.querySelector("#list").addEventListener("click", (e) => {
-  location.href = "/qList.do";
+  // location.href = "/qList.do";
+
+  document.querySelector("#actionForm").submit();
 });

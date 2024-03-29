@@ -58,5 +58,11 @@
 		</form>
 	</div>
 </section>
+<form action='<c:url value="/qList.do" />' method="get" id="actionForm">
+			<input type="hidden" name="page" value="${searchDto.page}">
+			<input type="hidden" name="amount" value="${searchDto.amount}">
+			<input type="hidden" name="criteria" value="${searchDto.criteria}">
+			<input type="hidden" name="keyword" value="${searchDto.keyword}">
+</form>
 <script src='<c:url value="/js/modify.js" />'></script>
 <%@include file="/include/footer.jsp"%>

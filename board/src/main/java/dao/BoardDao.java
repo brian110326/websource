@@ -200,6 +200,33 @@ public class BoardDao {
         return result;
     }
 
+    public boolean bnoreRefTest(int bno, int reRef) {
+        if (bno == reRef) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public int deleteAll(int reRef) {
+        // 부모글, 댓글까지 다 삭제
+        con = getConnection();
+        String sql = "DELETE FROM BOARD WHERE RE_REF=?";
+        int result = 0;
+        try {
+            pstmt = con.prepareStatement(sql);
+            pstmt.setInt(1, reRef);
+
+            result = pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close(con, pstmt);
+        }
+
+        return result;
+    }
+
     public BoardDto getRow(int bno) {
         con = getConnection();
         BoardDto dto = null;

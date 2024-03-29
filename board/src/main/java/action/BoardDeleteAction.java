@@ -32,6 +32,14 @@ public class BoardDeleteAction implements Action {
         deleteDto.setBno(Integer.parseInt(bno));
         deleteDto.setPassword(password);
 
+        // bno를 이용해서 행을 조회
+        // bno == re_ref : 원본글
+        // 비밀번호 확인후 일치한다면
+        // deleteAll 호출
+        if (service.bnoreRefTest(Integer.parseInt(bno), deleteDto.getReRef())) {
+            service.deleteAll(deleteDto.getReRef());
+        }
+
         if (!service.delete(deleteDto)) {
             path = "/view/qna_board_pwdCheck.jsp?bno=" + deleteDto.getBno() + "&page=" + page + "&amount=" + amount
                     + "&criteria=" + criteria + "&keyword="
